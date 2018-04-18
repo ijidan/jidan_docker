@@ -1,0 +1,47 @@
+version: '2'
+
+services:
+    nginx:
+        image: nginx:1.12.2
+        ports:
+            - "80:80"
+        restart: always
+        volumes:
+            - ./web:/usr/share/nginx/html:ro
+            - ./nginx/conf/conf.d:/etc/nginx/conf.d:ro
+            - ./nginx/conf/nginx.conf:/ect/nginx/nginx.conf:ro
+            - ./nginx/log:/var/log/nginx:rw
+        links:
+            - php:php
+    php:
+        image: php:7.1-fpm
+        ports:
+            - "9000:9000"
+        restart: always
+        volumes:
+            - ./web:/usr/share/nginx/html:ro
+            - ./php/conf/php.ini:/usr/local/etc/php/php.ini:ro
+            - ./php/conf/php-fpm.conf:/usr/local/etc/php-fpm.conf:ro
+            - ./php/log/php-fpm.log:/var/log/php-fpm/php-fpm.log:rw
+        links:
+            - mysql:mysql
+            - redis:redis
+    mysql:
+        image: mysql:latest
+        ports:
+            - "3306:3306"
+        restart: always
+        volumes:
+            - ./mysql/data/:/var/lib/mysql/:rw
+            - ./mysql/conf/my.cnf:/etc/mysql/my.cnf:ro
+            - ./mysql/conf/mysql.conf.d:/etc/mysql/mysql.conf.d:ro
+            - ./mysql/log/error.log:/var/log/mysql/error.log:rw
+        environment:
+            MYSQL_ROOT_PASSWORD: "root"
+            MYSQL_USER: "jidan"
+            MYSQL_PASSWORD: "jidan"
+    redis:
+      image: redis:alpine
+      ports:
+        - "6379:6379"
+      restart: always
