@@ -37,3 +37,7 @@ Stack trace:
 Stack trace:
 #0 {main}
   thrown in /usr/share/nginx/html/index.php on line 7" while reading upstream, client: 192.168.33.1, server: www.jida.com, request: "GET /index.php?r=site/index HTTP/1.1", upstream: "fastcgi://172.20.0.4:9000", host: "www.jidan.com"
+2018/04/18 07:54:26 [error] 5#5: *1 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught Error: Call to undefined function App\dump() in /usr/share/nginx/html/index.php:7
+Stack trace:
+#0 {main}
+  thrown in /usr/share/nginx/html/index.php on line 7" while reading upstream, client: 192.168.33.1, server: www.jida.com, request: "GET /index.php?r=site/index HTTP/1.1", upstream: "fastcgi://172.20.0.6:9000", host: "www.jidan.com"

@@ -53,3 +53,10 @@ services:
       ports:
         - "11211:11211"
       restart: always
+    elasticsearch:
+      image: elasticsearch
+      ports:
+        - "9200:9200"
+        - "9300:9300"
+      volumes:
+        - ./elasticsearch/log/err.log:/tmp/hs_err_pid1.log:rw
