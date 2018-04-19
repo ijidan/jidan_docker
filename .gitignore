@@ -1,0 +1,7 @@
+website/elasticsearch/log/
+website/memcached/data/
+website/mongodb/data
+website/mysql/data
+website/nginx/log
+website/php/log
+website/redis/data

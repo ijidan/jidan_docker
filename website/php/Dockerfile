@@ -13,7 +13,7 @@ COPY ./sources.list.stretch /etc/apt/sources.list
 # 4. xml, xmlrpc, wddx require libxml2-dev and libxslt-dev.
 # 5. Line `&& :\` is just for better reading and do nothing.
 RUN apt-get update \
-    && apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev \
+    && apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev wget \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install gd \
     && :\
@@ -107,18 +107,53 @@ RUN apt-get update \
 # or
 #    `Package "xxx" does not have REST xml available`
 # Please turn on proxy (The proxy IP may be docker host IP or others):
-RUN pear config-set http_proxy http://10.0.75.1:1080
+#RUN pear config-set http_proxy http://10.0.75.1:1080
 
-RUN pecl install redis-3.1.4 \
-    && docker-php-ext-enable redis \
-    && :\
-    && pecl install xdebug-2.6.0alpha1 \
-    && docker-php-ext-enable xdebug \
-    && :\
-    && apt-get install -y libmagickwand-dev \
-    && pecl install imagick-3.4.3 \
-    && docker-php-ext-enable imagick \
-    && :\
-    && apt-get install -y libmemcached-dev zlib1g-dev \
-    && pecl install memcached-3.0.4 \
-    && docker-php-ext-enable memcached
+#RUN pecl install redis-3.1.4 \
+#    && docker-php-ext-enable redis \
+#    && :\
+#    && pecl install xdebug-2.6.0alpha1 \
+#    && docker-php-ext-enable xdebug \
+#    && :\
+#    && apt-get install -y libmagickwand-dev \
+#    && pecl install imagick-3.4.3 \
+#    && docker-php-ext-enable imagick \
+#    && :\
+#    && apt-get install -y libmemcached-dev zlib1g-dev \
+#    && pecl install memcached-3.0.4 \
+#    && docker-php-ext-enable memcached
+
+#source install
+
+#RUN mkdir /data
+#WORKDIR /data
+
+
+
+RUN apt-get install -y unzip
+RUN cd /usr/local/src
+RUN wget http://github.com/nicolasff/phpredis/archive/master.zip \
+	&& unzip master.zip \
+    && rm master.zip \
+    && ( \
+        cd phpredis-master \
+        && phpize \
+        && ./configure \
+        && make -j$(nproc) \
+        && make install \
+    ) \
+    && rm -rf phpredis-master \
+    && docker-php-ext-enable redis
+
+#RUN wget http://github.com/php-memcached-dev/php-memcached/archive/php7.zip \
+#   && unzip php7.zip \
+#   && rm php7.zip
+#   && (\
+#       cd php-memcached-php7
+#       && phpize \
+#       && ./configure \
+#       && make -j$(nproc) \
+#       && make install
+#   )\
+#   && rm -rf php-memcached-php7 \
+#   && docker-php-ext-enable memcached

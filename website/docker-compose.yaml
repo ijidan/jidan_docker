@@ -14,7 +14,8 @@ services:
         links:
             - php:php
     php:
-        image: php:7.1-fpm
+        #image: php:7.1-fpm
+        build: ./php/
         ports:
             - "9000:9000"
         restart: always
@@ -25,8 +26,11 @@ services:
             - ./php/log/php-fpm.log:/var/log/php-fpm/php-fpm.log:rw
         links:
             - mysql:mysql
+            - mongo:mongo
             - redis:redis
             - memcached:memcached
+            - elasticsearch:elasticsearch
+            - rabbitmq:rabbitmq
     mysql:
         image: mysql:latest
         ports:
@@ -41,6 +45,10 @@ services:
             MYSQL_ROOT_PASSWORD: "root"
             MYSQL_USER: "jidan"
             MYSQL_PASSWORD: "jidan"
+    mongo:
+      image: mongo
+      ports:
+        - "27017:27017"
     redis:
       image: redis:alpine
       ports:
@@ -60,3 +68,8 @@ services:
         - "9300:9300"
       volumes:
         - ./elasticsearch/log/err.log:/tmp/hs_err_pid1.log:rw
+    rabbitmq:
+      image: rabbitmq:3.6.1-management
+      ports:
+        - "15672:15672"
+        - "5672:5672"
