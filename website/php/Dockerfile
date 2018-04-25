@@ -1,6 +1,10 @@
-FROM php:7.2-fpm
+FROM php:7.1-fpm
 
-COPY ./sources.list.stretch /etc/apt/sources.list
+COPY ./file/sources.list.stretch /etc/apt/sources.list
+COPY ./file/libmemcached-1.0.18.tar.gz /usr/local/src/
+COPY ./file/php7.zip /usr/local/src/
+COPY ./file/phpredis-master.zip /usr/local/src/
+#COPY ./file/mongodb-1.1.9.tgz /usr/local/src/
 
 # Extensions: ctype, dom, fileinfo, ftp, hash, iconv, json, pdo, pdo_sqlite, session,
 # tokenizer, simplexml, xml, xmlreader, xmlwriter and phar are bundled and compiled into
@@ -13,38 +17,39 @@ COPY ./sources.list.stretch /etc/apt/sources.list
 # 4. xml, xmlrpc, wddx require libxml2-dev and libxslt-dev.
 # 5. Line `&& :\` is just for better reading and do nothing.
 RUN apt-get update \
-    && apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev wget \
+	&& apt-get install -y wget unzip openssl  libssl-dev \
+    && apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-install gd \
-    && :\
-    && apt-get install -y libicu-dev \
-    && docker-php-ext-install intl \
-    && :\
-    && apt-get install -y libxml2-dev \
-    && apt-get install -y libxslt-dev \
-    && docker-php-ext-install soap \
-    && docker-php-ext-install xsl \
-    && docker-php-ext-install xmlrpc \
-    && docker-php-ext-install wddx \
-    && :\
-    && apt-get install -y libbz2-dev \
-    && docker-php-ext-install bz2 \
-    && :\
-    && docker-php-ext-install zip \
-    && docker-php-ext-install pcntl \
-    && docker-php-ext-install pdo_mysql \
-    && docker-php-ext-install mysqli \
-    && docker-php-ext-install mbstring \
-    && docker-php-ext-install exif \
-    && docker-php-ext-install bcmath \
-    && docker-php-ext-install calendar \
-    && docker-php-ext-install sockets \
-    && docker-php-ext-install gettext \
-    && docker-php-ext-install shmop \
-    && docker-php-ext-install sysvmsg \
-    && docker-php-ext-install sysvsem \
-    && docker-php-ext-install sysvshm \
-    && docker-php-ext-install opcache
+    && docker-php-ext-install gd
+    #&& :\
+    #&& apt-get install -y libicu-dev \
+    #&& docker-php-ext-install intl \
+    #&& :\
+    #&& apt-get install -y libxml2-dev \
+    #&& apt-get install -y libxslt-dev \
+    #&& docker-php-ext-install soap \
+    #&& docker-php-ext-install xsl \
+    #&& docker-php-ext-install xmlrpc \
+    #&& docker-php-ext-install wddx \
+    #&& :\
+    #&& apt-get install -y libbz2-dev \
+    #&& docker-php-ext-install bz2 \
+    #&& :\
+    #&& docker-php-ext-install zip \
+    #&& docker-php-ext-install pcntl \
+    #&& docker-php-ext-install pdo_mysql \
+    #&& docker-php-ext-install mysqli \
+    #&& docker-php-ext-install mbstring \
+    #&& docker-php-ext-install exif \
+    #&& docker-php-ext-install bcmath \
+    #&& docker-php-ext-install calendar \
+    #&& docker-php-ext-install sockets \
+    #&& docker-php-ext-install gettext \
+    #&& docker-php-ext-install shmop \
+    #&& docker-php-ext-install sysvmsg \
+    #&& docker-php-ext-install sysvsem \
+    #&& docker-php-ext-install sysvshm \
+    #&& docker-php-ext-install opcache \
     #&& docker-php-ext-install pdo_firebird \
     #&& docker-php-ext-install pdo_dblib \
     #&& docker-php-ext-install pdo_oci \
@@ -107,34 +112,17 @@ RUN apt-get update \
 # or
 #    `Package "xxx" does not have REST xml available`
 # Please turn on proxy (The proxy IP may be docker host IP or others):
-#RUN pear config-set http_proxy http://10.0.75.1:1080
+# RUN pear config-set http_proxy http://10.0.75.1:1080
 
-#RUN pecl install redis-3.1.4 \
-#    && docker-php-ext-enable redis \
-#    && :\
-#    && pecl install xdebug-2.6.0alpha1 \
-#    && docker-php-ext-enable xdebug \
-#    && :\
-#    && apt-get install -y libmagickwand-dev \
-#    && pecl install imagick-3.4.3 \
-#    && docker-php-ext-enable imagick \
-#    && :\
-#    && apt-get install -y libmemcached-dev zlib1g-dev \
-#    && pecl install memcached-3.0.4 \
-#    && docker-php-ext-enable memcached
+#Composer
+COPY ./file/composer /usr/local/bin/
+RUN cd /usr/local/bin \
+	&& chmod +x composer
 
 #source install
-
-#RUN mkdir /data
-#WORKDIR /data
-
-
-
-RUN apt-get install -y unzip
-RUN cd /usr/local/src
-RUN wget http://github.com/nicolasff/phpredis/archive/master.zip \
-	&& unzip master.zip \
-    && rm master.zip \
+WORKDIR /usr/local/src
+RUN unzip phpredis-master.zip \
+    && rm phpredis-master.zip \
     && ( \
         cd phpredis-master \
         && phpize \
@@ -145,15 +133,37 @@ RUN wget http://github.com/nicolasff/phpredis/archive/master.zip \
     && rm -rf phpredis-master \
     && docker-php-ext-enable redis
 
-#RUN wget http://github.com/php-memcached-dev/php-memcached/archive/php7.zip \
-#   && unzip php7.zip \
-#   && rm php7.zip
-#   && (\
-#       cd php-memcached-php7
-#       && phpize \
-#       && ./configure \
-#       && make -j$(nproc) \
-#       && make install
-#   )\
-#   && rm -rf php-memcached-php7 \
-#   && docker-php-ext-enable memcached
+#RUN wget http://launchpad.net/libmemcached/1.0/1.0.18/+download/libmemcached-1.0.18.tar.gz \
+RUN tar zxvf libmemcached-1.0.18.tar.gz \
+	&& rm libmemcached-1.0.18.tar.gz \
+    && cd libmemcached-1.0.18 \
+    && ./configure --prefix=/usr/local/libmemcached \
+    && make -j$(nproc) \
+    && make install
+    && rm -rf libmemcached-1.0.18
+
+##RUN  wget http://github.com/php-memcached-dev/php-memcached/archive/php7.zip \
+RUN	 unzip php7.zip \
+	 && rm php7.zip \
+	 && (\
+	     cd php-memcached-php7 \
+	     && phpize \
+	     && ./configure --with-libmemcached-dir=/usr/local/libmemcached --disable-memcached-sasl \
+	     && make -j$(nproc) \
+	     && make install \
+	 )\
+	 && rm -rf php-memcached-php7 \
+	 && docker-php-ext-enable memcached
+
+#RUN	 tar zxvf mongodb-1.4.3.tgz
+	 #&& rm mongodb-1.1.9.tgz \
+	 #&& (\
+	 #    cd mongodb-1.1.9  \
+	 #    && phpize \
+	 #    && ./configure \
+	 #    && make -j$(nproc) \
+	 #    && make install \
+	 #)\
+	 #&& rm -rf mongodb-1.1.9 \
+	 #&& docker-php-ext-enable mongodb
+

@@ -21,55 +21,55 @@ services:
         restart: always
         volumes:
             - ./web:/usr/share/nginx/html:ro
-            - ./php/conf/php.ini:/usr/local/etc/php/php.ini:ro
+            #- ./php/conf/php.ini:/usr/local/etc/php/php.ini:ro
             - ./php/conf/php-fpm.conf:/usr/local/etc/php-fpm.conf:ro
             - ./php/log/php-fpm.log:/var/log/php-fpm/php-fpm.log:rw
-        links:
-            - mysql:mysql
-            - mongo:mongo
-            - redis:redis
-            - memcached:memcached
-            - elasticsearch:elasticsearch
-            - rabbitmq:rabbitmq
-    mysql:
-        image: mysql:latest
-        ports:
-            - "3306:3306"
-        restart: always
-        volumes:
-            - ./mysql/data/:/var/lib/mysql/:rw
-            - ./mysql/conf/my.cnf:/etc/mysql/my.cnf:ro
-            - ./mysql/conf/mysql.conf.d:/etc/mysql/mysql.conf.d:ro
-            - ./mysql/log/error.log:/var/log/mysql/error.log:rw
-        environment:
-            MYSQL_ROOT_PASSWORD: "root"
-            MYSQL_USER: "jidan"
-            MYSQL_PASSWORD: "jidan"
-    mongo:
-      image: mongo
-      ports:
-        - "27017:27017"
-    redis:
-      image: redis:alpine
-      ports:
-        - "6379:6379"
-      volumes:
-        - ./redis/data:/data:rw
-      restart: always
-    memcached:
-      image: memcached:latest
-      ports:
-        - "11211:11211"
-      restart: always
-    elasticsearch:
-      image: elasticsearch
-      ports:
-        - "9200:9200"
-        - "9300:9300"
-      volumes:
-        - ./elasticsearch/log/err.log:/tmp/hs_err_pid1.log:rw
-    rabbitmq:
-      image: rabbitmq:3.6.1-management
-      ports:
-        - "15672:15672"
-        - "5672:5672"
+        #links:
+        #    - mysql:mysql
+        #    - mongo:mongo
+        #    - redis:redis
+        #    - memcached:memcached
+        #    - elasticsearch:elasticsearch
+        #    - rabbitmq:rabbitmq
+    #mysql:
+    #    image: mysql:latest
+    #    ports:
+    #        - "3306:3306"
+    #    restart: always
+    #    volumes:
+    #        - ./mysql/data/:/var/lib/mysql/:rw
+    #        - ./mysql/conf/my.cnf:/etc/mysql/my.cnf:ro
+    #        - ./mysql/conf/mysql.conf.d:/etc/mysql/mysql.conf.d:ro
+    #        - ./mysql/log/error.log:/var/log/mysql/error.log:rw
+    #    environment:
+    #        MYSQL_ROOT_PASSWORD: "root"
+    #        MYSQL_USER: "jidan"
+    #        MYSQL_PASSWORD: "jidan"
+    #mongo:
+    #  image: mongo
+    #  ports:
+    #    - "27017:27017"
+    #redis:
+    #  image: redis:alpine
+    #  ports:
+    #    - "6379:6379"
+    #  volumes:
+    #    - ./redis/data:/data:rw
+    #  restart: always
+    #memcached:
+    #  image: memcached:latest
+    #  ports:
+    #    - "11211:11211"
+    #  restart: always
+    #elasticsearch:
+    #  image: elasticsearch
+    #  ports:
+    #    - "9200:9200"
+    #    - "9300:9300"
+    #  volumes:
+    #    - ./elasticsearch/log/err.log:/tmp/hs_err_pid1.log:rw
+    #rabbitmq:
+    #  image: rabbitmq:3.6.1-management
+    #  ports:
+    #    - "15672:15672"
+    #    - "5672:5672"
