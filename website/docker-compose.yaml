@@ -2,28 +2,28 @@ version: '2'
 
 services:
     nginx:
-        image: nginx:1.12.2
+        build: ./nginx/
         ports:
             - "80:80"
         restart: always
         volumes:
-            - ./web:/usr/share/nginx/html:ro
+            - ./web:/etc/nginx/html:ro
             - ./nginx/conf/conf.d:/etc/nginx/conf.d:ro
             - ./nginx/conf/nginx.conf:/ect/nginx/nginx.conf:ro
             - ./nginx/log:/var/log/nginx:rw
-        links:
-            - php:php
-    php:
-        #image: php:7.1-fpm
-        build: ./php/
-        ports:
-            - "9000:9000"
-        restart: always
-        volumes:
-            - ./web:/usr/share/nginx/html:ro
-            #- ./php/conf/php.ini:/usr/local/etc/php/php.ini:ro
-            - ./php/conf/php-fpm.conf:/usr/local/etc/php-fpm.conf:ro
-            - ./php/log/php-fpm.log:/var/log/php-fpm/php-fpm.log:rw
+        #links:
+        #    - php:php
+    #php:
+    #    #image: php:7.1-fpm
+    #    build: ./php/
+    #    ports:
+    #        - "9000:9000"
+    #    restart: always
+    #    volumes:
+    #        - ./web:/usr/share/nginx/html:ro
+    #        #- ./php/conf/php.ini:/usr/local/etc/php/php.ini:ro
+    #        - ./php/conf/php-fpm.conf:/usr/local/etc/php-fpm.conf:ro
+    #        - ./php/log/php-fpm.log:/var/log/php-fpm/php-fpm.log:rw
         #links:
         #    - mysql:mysql
         #    - mongo:mongo

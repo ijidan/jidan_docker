@@ -139,7 +139,7 @@ RUN tar zxvf libmemcached-1.0.18.tar.gz \
     && cd libmemcached-1.0.18 \
     && ./configure --prefix=/usr/local/libmemcached \
     && make -j$(nproc) \
-    && make install
+    && make install \
     && rm -rf libmemcached-1.0.18
 
 ##RUN  wget http://github.com/php-memcached-dev/php-memcached/archive/php7.zip \
