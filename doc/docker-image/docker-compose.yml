@@ -1,0 +1,40 @@
+version: '2'
+
+services:
+    local-php:
+        image: php:7.1-fpm
+        restart: always
+        volumes:
+            - /home/vagrant/www:/var/www/html:ro
+    local-nginx:
+        image: nginx:1.12.2
+        ports:
+            - "80:80"
+        restart: always
+        volumes:
+            - /home/vagrant/www:/usr/share/nginx/html:ro
+            - /home/vagrant/docker/nginx/conf.d:/etc/nginx/conf.d:ro
+        links:
+            - local-php:php
+    local-mysql:
+        image: mysql:5.5.56
+        ports:
+            - "3306:3306"
+        links:
+            - local-php
+        volumes:
+            - /home/vagrant/docker/mysql/conf:/etc/mysql
+            - /home/vagrant/docker/mysql/logs:/logs
+            - /home/vagrant/docker/mysql/data:/mysql_data
+        environment:
+            - MYSQL_ROOT_PASSWORD=123456
+    local-phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        depends_on:
+            - local-php
+            - local-nginx
+            - local-mysql
+        ports:
+            - "8080:80"
+        links:
+            - local-mysql:db
