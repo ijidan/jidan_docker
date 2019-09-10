@@ -1,7 +1,0 @@
-192.168.33.1 - - [26/Apr/2018:02:07:16 +0000] "GET /index.php?r=site/index HTTP/1.1" 404 571 "-" "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.108 Safari/537.36"
-192.168.33.1 - - [26/Apr/2018:02:07:17 +0000] "GET /favicon.ico HTTP/1.1" 404 571 "http://www.jidan.com/index.php?r=site/index" "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.108 Safari/537.36"
-192.168.33.1 - - [26/Apr/2018:02:07:19 +0000] "GET /index.php?r=site/index HTTP/1.1" 404 571 "-" "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.108 Safari/537.36"
-192.168.33.1 - - [26/Apr/2018:02:07:26 +0000] "GET / HTTP/1.1" 200 612 "-" "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.108 Safari/537.36"
-192.168.33.1 - - [26/Apr/2018:02:11:56 +0000] "GET / HTTP/1.1" 304 0 "-" "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.108 Safari/537.36"
-192.168.33.1 - - [26/Apr/2018:02:14:02 +0000] "GET / HTTP/1.1" 200 155 "-" "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.108 Safari/537.36"
-192.168.33.1 - - [26/Apr/2018:02:24:16 +0000] "GET / HTTP/1.1" 304 0 "-" "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.108 Safari/537.36"
