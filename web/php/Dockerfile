@@ -20,26 +20,26 @@ RUN apt-get update \
 	&& apt-get install -y wget unzip openssl \
     && apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-install gd
-    #&& :\
-    #&& apt-get install -y libicu-dev \
-    #&& docker-php-ext-install intl \
-    #&& :\
-    #&& apt-get install -y libxml2-dev \
-    #&& apt-get install -y libxslt-dev \
-    #&& docker-php-ext-install soap \
-    #&& docker-php-ext-install xsl \
-    #&& docker-php-ext-install xmlrpc \
-    #&& docker-php-ext-install wddx \
-    #&& :\
-    #&& apt-get install -y libbz2-dev \
-    #&& docker-php-ext-install bz2 \
-    #&& :\
-    #&& docker-php-ext-install zip \
-    #&& docker-php-ext-install pcntl \
-    #&& docker-php-ext-install pdo_mysql \
-    #&& docker-php-ext-install mysqli \
-    #&& docker-php-ext-install mbstring \
+    && docker-php-ext-install gd \
+    && :\
+    && apt-get install -y libicu-dev \
+    && docker-php-ext-install intl \
+    && :\
+    && apt-get install -y libxml2-dev \
+    && apt-get install -y libxslt-dev \
+    && docker-php-ext-install soap \
+    && docker-php-ext-install xsl \
+    && docker-php-ext-install xmlrpc \
+    && docker-php-ext-install wddx \
+    && :\
+    && apt-get install -y libbz2-dev \
+    && docker-php-ext-install bz2 \
+    && :\
+    && docker-php-ext-install zip \
+    && docker-php-ext-install pcntl \
+    && docker-php-ext-install pdo_mysql \
+    && docker-php-ext-install mysqli \
+    && docker-php-ext-install mbstring
     #&& docker-php-ext-install exif \
     #&& docker-php-ext-install bcmath \
     #&& docker-php-ext-install calendar \
@@ -61,16 +61,16 @@ RUN apt-get update \
     #&& docker-php-ext-install dba \
     #&& docker-php-ext-install interbase \
     #&& :\
-    #&& apt-get install -y libmcrypt-dev \
-    #&& docker-php-ext-install mcrypt \
+	#&& apt-get install -y libmcrypt-dev \
+	#&& docker-php-ext-install mcrypt \
     #&& :\
-    #&& apt-get install -y curl \
-    #&& apt-get install -y libcurl3 \
-    #&& apt-get install -y libcurl4-openssl-dev \
-    #&& docker-php-ext-install curl \
-    #&& :\
-    #&& apt-get install -y libreadline-dev \
-    #&& docker-php-ext-install readline \
+	#&& apt-get install -y curl \
+	#&& apt-get install -y libcurl3 \
+	#&& apt-get install -y libcurl4-openssl-dev \
+	#&& docker-php-ext-install curl \
+	#&& :\
+	#&& apt-get install -y libreadline-dev \
+	#&& docker-php-ext-install readline \
     #&& :\
     #&& apt-get install -y libsnmp-dev \
     #&& apt-get install -y snmp \
@@ -113,6 +113,13 @@ RUN apt-get update \
 #    `Package "xxx" does not have REST xml available`
 # Please turn on proxy (The proxy IP may be docker host IP or others):
 # RUN pear config-set http_proxy http://10.0.75.1:1080
+#MondoDB
+RUN pecl install mongodb
+RUN echo "extension=mongodb.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+#Memcached
+#RUN pecl install memcached
+#RUN echo "extension=memcached.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
+
 
 #Composer
 COPY ./file/composer /usr/local/bin/
