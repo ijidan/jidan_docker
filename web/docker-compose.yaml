@@ -8,21 +8,20 @@ services:
             - "443:443"
         restart: always
         volumes:
-            - ./web:/etc/nginx/html:ro
+            - ./_public:/etc/nginx/html:ro
             - ./nginx/conf/conf.d:/etc/nginx/conf.d:ro
             - ./nginx/conf/nginx.conf:/ect/nginx/nginx.conf:ro
-            - ./nginx/log:/var/log/nginx:rw
+            - ./nginx/log:/etc/nginx/logs:rw
         links:
             - php:php
     php:
-        #image: php:7.1-fpm
         build: ./php/
         ports:
             - "9000:9000"
         restart: always
         volumes:
-            - ./web:/usr/share/nginx/html:ro
-            #- ./php/conf/php.ini:/usr/local/etc/php/php.ini:ro
+            - ./_public:/usr/share/nginx/html:ro
+            - ./php/conf/php.ini:/usr/local/etc/php/php.ini:ro
             - ./php/conf/php-fpm.conf:/usr/local/etc/php-fpm.conf:ro
             - ./php/log/php-fpm.log:/var/log/php-fpm/php-fpm.log:rw
         #links:

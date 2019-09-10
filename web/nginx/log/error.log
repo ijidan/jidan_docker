@@ -1,17 +1,24 @@
-2018/04/26 02:07:16 [error] 5#5: *1 open() "/etc/nginx/html/index.php" failed (2: No such file or directory), client: 192.168.33.1, server: localhost, request: "GET /index.php?r=site/index HTTP/1.1", host: "www.jidan.com"
-2018/04/26 02:07:17 [error] 5#5: *1 open() "/etc/nginx/html/favicon.ico" failed (2: No such file or directory), client: 192.168.33.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "www.jidan.com", referrer: "http://www.jidan.com/index.php?r=site/index"
-2018/04/26 02:07:19 [error] 5#5: *1 open() "/etc/nginx/html/index.php" failed (2: No such file or directory), client: 192.168.33.1, server: localhost, request: "GET /index.php?r=site/index HTTP/1.1", host: "www.jidan.com"
-2019/09/10 11:21:27 [emerg] 1#1: host not found in upstream "php" in /etc/nginx/conf.d/default.conf:14
-2019/09/10 11:21:28 [emerg] 1#1: host not found in upstream "php" in /etc/nginx/conf.d/default.conf:14
-2019/09/10 11:21:28 [emerg] 1#1: host not found in upstream "php" in /etc/nginx/conf.d/default.conf:14
-2019/09/10 11:21:29 [emerg] 1#1: host not found in upstream "php" in /etc/nginx/conf.d/default.conf:14
-2019/09/10 11:21:30 [emerg] 1#1: host not found in upstream "php" in /etc/nginx/conf.d/default.conf:14
-2019/09/10 11:21:32 [emerg] 1#1: host not found in upstream "php" in /etc/nginx/conf.d/default.conf:14
-2019/09/10 11:21:36 [emerg] 1#1: host not found in upstream "php" in /etc/nginx/conf.d/default.conf:14
-2019/09/10 11:21:43 [emerg] 1#1: host not found in upstream "php" in /etc/nginx/conf.d/default.conf:14
-2019/09/10 11:21:56 [emerg] 1#1: host not found in upstream "php" in /etc/nginx/conf.d/default.conf:14
-2019/09/10 11:22:22 [emerg] 1#1: host not found in upstream "php" in /etc/nginx/conf.d/default.conf:14
-2019/09/10 11:23:13 [emerg] 1#1: host not found in upstream "php" in /etc/nginx/conf.d/default.conf:14
-2019/09/10 11:24:56 [emerg] 1#1: host not found in upstream "php" in /etc/nginx/conf.d/default.conf:14
-2019/09/10 11:28:22 [emerg] 1#1: host not found in upstream "php" in /etc/nginx/conf.d/default.conf:14
-2019/09/10 11:35:11 [emerg] 1#1: host not found in upstream "php" in /etc/nginx/conf.d/default.conf:14
+2019/09/10 14:04:22 [emerg] 1#1: open() "/etc/nginx/logs/www.jphp.com.access.log" failed (2: No such file or directory)
+2019/09/10 14:14:21 [emerg] 1#1: open() "/etc/nginx/logs/www.jphp.com.access.log" failed (2: No such file or directory)
+2019/09/10 14:14:22 [emerg] 1#1: open() "/etc/nginx/logs/www.jphp.com.access.log" failed (2: No such file or directory)
+2019/09/10 14:14:22 [emerg] 1#1: open() "/etc/nginx/logs/www.jphp.com.access.log" failed (2: No such file or directory)
+2019/09/10 14:14:23 [emerg] 1#1: open() "/etc/nginx/logs/www.jphp.com.access.log" failed (2: No such file or directory)
+2019/09/10 14:14:24 [emerg] 1#1: open() "/etc/nginx/logs/www.jphp.com.access.log" failed (2: No such file or directory)
+2019/09/10 14:14:26 [emerg] 1#1: open() "/etc/nginx/logs/www.jphp.com.access.log" failed (2: No such file or directory)
+2019/09/10 14:14:29 [emerg] 1#1: open() "/etc/nginx/logs/www.jphp.com.access.log" failed (2: No such file or directory)
+2019/09/10 14:14:36 [emerg] 1#1: open() "/etc/nginx/logs/www.jphp.com.access.log" failed (2: No such file or directory)
+2019/09/10 14:14:49 [emerg] 1#1: open() "/etc/nginx/logs/www.jphp.com.access.log" failed (2: No such file or directory)
+2019/09/10 14:15:15 [emerg] 1#1: open() "/etc/nginx/logs/www.jphp.com.access.log" failed (2: No such file or directory)
+2019/09/10 14:16:07 [emerg] 1#1: open() "/etc/nginx/logs/www.jphp.com.access.log" failed (2: No such file or directory)
+2019/09/10 14:16:14 [emerg] 1#1: open() "/etc/nginx/logs/www.jphp.com.access.log" failed (2: No such file or directory)
+2019/09/10 14:16:15 [emerg] 1#1: open() "/etc/nginx/logs/www.jphp.com.access.log" failed (2: No such file or directory)
+2019/09/10 14:16:15 [emerg] 1#1: open() "/etc/nginx/logs/www.jphp.com.access.log" failed (2: No such file or directory)
+2019/09/10 14:16:16 [emerg] 1#1: open() "/etc/nginx/logs/www.jphp.com.access.log" failed (2: No such file or directory)
+2019/09/10 14:16:17 [emerg] 1#1: open() "/etc/nginx/logs/www.jphp.com.access.log" failed (2: No such file or directory)
+2019/09/10 14:16:19 [emerg] 1#1: open() "/etc/nginx/logs/www.jphp.com.access.log" failed (2: No such file or directory)
+2019/09/10 14:16:23 [emerg] 1#1: open() "/etc/nginx/logs/www.jphp.com.access.log" failed (2: No such file or directory)
+2019/09/10 14:16:29 [emerg] 1#1: open() "/etc/nginx/logs/www.jphp.com.access.log" failed (2: No such file or directory)
+2019/09/10 14:16:43 [emerg] 1#1: open() "/etc/nginx/logs/www.jphp.com.access.log" failed (2: No such file or directory)
+2019/09/10 14:17:09 [emerg] 1#1: open() "/etc/nginx/logs/www.jphp.com.access.log" failed (2: No such file or directory)
+2019/09/10 14:18:00 [emerg] 1#1: open() "/etc/nginx/logs/www.jphp.com.access.log" failed (2: No such file or directory)
+2019/09/10 14:19:43 [emerg] 1#1: open() "/etc/nginx/logs/access.log" failed (2: No such file or directory)

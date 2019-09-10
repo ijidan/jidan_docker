@@ -1,6 +1,6 @@
-FROM php:7.2-fpm
+FROM php:7.1-fpm
 
-COPY ./file/sources.list.stretch /etc/apt/sources.list
+#COPY ./file/sources.list.stretch /etc/apt/sources.list
 COPY ./file/libmemcached-1.0.18.tar.gz /usr/local/src/
 COPY ./file/php7.zip /usr/local/src/
 COPY ./file/phpredis-master.zip /usr/local/src/
@@ -17,7 +17,7 @@ COPY ./file/phpredis-master.zip /usr/local/src/
 # 4. xml, xmlrpc, wddx require libxml2-dev and libxslt-dev.
 # 5. Line `&& :\` is just for better reading and do nothing.
 RUN apt-get update \
-	&& apt-get install -y wget unzip openssl  \
+	&& apt-get install -y wget unzip openssl \
     && apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install gd
@@ -119,51 +119,7 @@ COPY ./file/composer /usr/local/bin/
 RUN cd /usr/local/bin \
 	&& chmod +x composer
 
-#source install
-WORKDIR /usr/local/src
-RUN unzip phpredis-master.zip \
-    && rm phpredis-master.zip \
-    && ( \
-        cd phpredis-master \
-        && phpize \
-        && ./configure \
-        && make -j$(nproc) \
-        && make install \
-    ) \
-    && rm -rf phpredis-master \
-    && docker-php-ext-enable redis
+EXPOSE 9000
 
-#RUN wget http://launchpad.net/libmemcached/1.0/1.0.18/+download/libmemcached-1.0.18.tar.gz \
-RUN tar zxvf libmemcached-1.0.18.tar.gz \
-	&& rm libmemcached-1.0.18.tar.gz \
-    && cd libmemcached-1.0.18 \
-    && ./configure --prefix=/usr/local/libmemcached \
-    && make -j$(nproc) \
-    && make install \
-    && rm -rf libmemcached-1.0.18
-
-##RUN  wget http://github.com/php-memcached-dev/php-memcached/archive/php7.zip \
-RUN	 unzip php7.zip \
-	 && rm php7.zip \
-	 && (\
-	     cd php-memcached-php7 \
-	     && phpize \
-	     && ./configure --with-libmemcached-dir=/usr/local/libmemcached --disable-memcached-sasl \
-	     && make -j$(nproc) \
-	     && make install \
-	 )\
-	 && rm -rf php-memcached-php7 \
-	 && docker-php-ext-enable memcached
-
-#RUN	 tar zxvf mongodb-1.4.3.tgz
-	 #&& rm mongodb-1.1.9.tgz \
-	 #&& (\
-	 #    cd mongodb-1.1.9  \
-	 #    && phpize \
-	 #    && ./configure \
-	 #    && make -j$(nproc) \
-	 #    && make install \
-	 #)\
-	 #&& rm -rf mongodb-1.1.9 \
-	 #&& docker-php-ext-enable mongodb
+CMD ["php-fpm", "-F"]
 
