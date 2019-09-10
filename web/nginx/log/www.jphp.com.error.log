@@ -22,3 +22,5 @@
 2019/09/10 14:39:06 [error] 6#6: *1 directory index of "/etc/nginx/html/" is forbidden, client: 192.168.33.1, server: www.jphp.com, request: "GET /?r=site/index HTTP/1.1", host: "www.jphp.com"
 2019/09/10 14:39:06 [error] 6#6: *1 directory index of "/etc/nginx/html/" is forbidden, client: 192.168.33.1, server: www.jphp.com, request: "GET /?r=site/index HTTP/1.1", host: "www.jphp.com"
 2019/09/10 14:39:06 [error] 6#6: *1 directory index of "/etc/nginx/html/" is forbidden, client: 192.168.33.1, server: www.jphp.com, request: "GET /?r=site/index HTTP/1.1", host: "www.jphp.com"
+2019/09/10 15:01:11 [error] 6#6: *1 directory index of "/etc/nginx/html/" is forbidden, client: 192.168.33.1, server: www.jphp.com, request: "GET /?r=site/index HTTP/1.1", host: "www.jphp.com"
+2019/09/10 15:01:12 [error] 6#6: *1 directory index of "/etc/nginx/html/" is forbidden, client: 192.168.33.1, server: www.jphp.com, request: "GET /?r=site/index HTTP/1.1", host: "www.jphp.com"
