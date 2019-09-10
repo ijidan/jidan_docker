@@ -1,4 +1,4 @@
-FROM php:7.1-fpm
+FROM php:7.2-fpm
 
 COPY ./file/sources.list.stretch /etc/apt/sources.list
 COPY ./file/libmemcached-1.0.18.tar.gz /usr/local/src/
@@ -17,7 +17,7 @@ COPY ./file/phpredis-master.zip /usr/local/src/
 # 4. xml, xmlrpc, wddx require libxml2-dev and libxslt-dev.
 # 5. Line `&& :\` is just for better reading and do nothing.
 RUN apt-get update \
-	&& apt-get install -y wget unzip openssl  libssl-dev \
+	&& apt-get install -y wget unzip openssl  \
     && apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install gd
