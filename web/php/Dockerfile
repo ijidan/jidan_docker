@@ -6,6 +6,7 @@ COPY ./file/php7.zip /usr/local/src/
 COPY ./file/phpredis-master.zip /usr/local/src/
 #COPY ./file/mongodb-1.1.9.tgz /usr/local/src/
 
+
 # Extensions: ctype, dom, fileinfo, ftp, hash, iconv, json, pdo, pdo_sqlite, session,
 # tokenizer, simplexml, xml, xmlreader, xmlwriter and phar are bundled and compiled into
 # PHP by default. If missing, install them directly by `docker-php-ext-install extension_name`
@@ -124,6 +125,54 @@ RUN echo "extension=mongodb.so" >> `php --ini | grep "Loaded Configuration" | se
 COPY ./file/composer /usr/local/bin/
 RUN cd /usr/local/bin \
 	&& chmod +x composer
+
+#source install
+WORKDIR /usr/local/src
+RUN unzip phpredis-master.zip \
+    && rm phpredis-master.zip \
+    && ( \
+        cd phpredis-master \
+        && phpize \
+        && ./configure \
+        && make -j$(nproc) \
+        && make install \
+    ) \
+    && rm -rf phpredis-master \
+    && docker-php-ext-enable redis
+
+#RUN wget http://launchpad.net/libmemcached/1.0/1.0.18/+download/libmemcached-1.0.18.tar.gz \
+RUN tar zxvf libmemcached-1.0.18.tar.gz \
+	&& rm libmemcached-1.0.18.tar.gz \
+    && cd libmemcached-1.0.18 \
+    && ./configure --prefix=/usr/local/libmemcached \
+    && make -j$(nproc) \
+    && make install \
+    && rm -rf libmemcached-1.0.18
+
+##RUN  wget http://github.com/php-memcached-dev/php-memcached/archive/php7.zip \
+RUN	 unzip php7.zip \
+	 && rm php7.zip \
+	 && (\
+	     cd php-memcached-php7 \
+	     && phpize \
+	     && ./configure --with-libmemcached-dir=/usr/local/libmemcached --disable-memcached-sasl \
+	     && make -j$(nproc) \
+	     && make install \
+	 )\
+	 && rm -rf php-memcached-php7 \
+	 && docker-php-ext-enable memcached
+
+#RUN	 tar zxvf mongodb-1.4.3.tgz
+	 #&& rm mongodb-1.1.9.tgz \
+	 #&& (\
+	 #    cd mongodb-1.1.9  \
+	 #    && phpize \
+	 #    && ./configure \
+	 #    && make -j$(nproc) \
+	 #    && make install \
+	 #)\
+	 #&& rm -rf mongodb-1.1.9 \
+	 #&& docker-php-ext-enable mongodb
 
 EXPOSE 9000
 
