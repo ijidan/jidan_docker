@@ -7,10 +7,9 @@ services:
             - "80:80"
         restart: always
         volumes:
-            - ./web:/etc/nginx/html:ro
-            - ./nginx/conf/conf.d:/etc/nginx/conf.d:ro
-            - ./nginx/conf/nginx.conf:/ect/nginx/nginx.conf:ro
-            - ./nginx/log:/var/log/nginx:rw
+            - ./web:/usr/local/nginx/html:ro
+            - ./nginx/conf/nginx.conf/:/usr/local/nginx/conf/nginx.conf:ro
+            - ./nginx/log:/usr/local/nginx/logs:rw
         #links:
         #    - php:php
     #php:
