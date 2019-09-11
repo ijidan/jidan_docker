@@ -11,3 +11,21 @@
 2019/09/11 07:59:30 [error] 6#6: *1 open() "/usr/local/nginx/html/index.php" failed (2: No such file or directory), client: 192.168.33.1, server: www.jphp.com, request: "GET /index.php?r=site/index HTTP/1.1", host: "www.jphp.com"
 2019/09/11 07:59:30 [error] 6#6: *1 open() "/usr/local/nginx/html/index.php" failed (2: No such file or directory), client: 192.168.33.1, server: www.jphp.com, request: "GET /index.php?r=site/index HTTP/1.1", host: "www.jphp.com"
 2019/09/11 07:59:30 [error] 6#6: *1 open() "/usr/local/nginx/html/index.php" failed (2: No such file or directory), client: 192.168.33.1, server: www.jphp.com, request: "GET /index.php?r=site/index HTTP/1.1", host: "www.jphp.com"
+2019/09/11 08:03:55 [error] 6#6: *3 open() "/usr/local/nginx/html/index.php" failed (2: No such file or directory), client: 192.168.33.1, server: www.jphp.com, request: "GET /index.php?r=site/index HTTP/1.1", host: "www.jphp.com"
+2019/09/11 08:03:55 [error] 6#6: *3 open() "/usr/local/nginx/html/index.php" failed (2: No such file or directory), client: 192.168.33.1, server: www.jphp.com, request: "GET /index.php?r=site/index HTTP/1.1", host: "www.jphp.com"
+2019/09/11 08:03:55 [error] 6#6: *3 open() "/usr/local/nginx/html/index.php" failed (2: No such file or directory), client: 192.168.33.1, server: www.jphp.com, request: "GET /index.php?r=site/index HTTP/1.1", host: "www.jphp.com"
+2019/09/11 08:03:55 [error] 6#6: *3 open() "/usr/local/nginx/html/index.php" failed (2: No such file or directory), client: 192.168.33.1, server: www.jphp.com, request: "GET /index.php?r=site/index HTTP/1.1", host: "www.jphp.com"
+2019/09/11 08:03:56 [error] 6#6: *3 open() "/usr/local/nginx/html/index.php" failed (2: No such file or directory), client: 192.168.33.1, server: www.jphp.com, request: "GET /index.php?r=site/index HTTP/1.1", host: "www.jphp.com"
+2019/09/11 08:03:56 [error] 6#6: *3 open() "/usr/local/nginx/html/index.php" failed (2: No such file or directory), client: 192.168.33.1, server: www.jphp.com, request: "GET /index.php?r=site/index HTTP/1.1", host: "www.jphp.com"
+2019/09/11 08:03:56 [error] 6#6: *3 open() "/usr/local/nginx/html/index.php" failed (2: No such file or directory), client: 192.168.33.1, server: www.jphp.com, request: "GET /index.php?r=site/index HTTP/1.1", host: "www.jphp.com"
+2019/09/11 08:06:21 [emerg] 1#1: unexpected "}" in /usr/local/nginx/conf/nginx.conf:119
+2019/09/11 08:06:22 [emerg] 1#1: unexpected "}" in /usr/local/nginx/conf/nginx.conf:119
+2019/09/11 08:06:22 [emerg] 1#1: unexpected "}" in /usr/local/nginx/conf/nginx.conf:119
+2019/09/11 08:06:23 [emerg] 1#1: unexpected "}" in /usr/local/nginx/conf/nginx.conf:119
+2019/09/11 08:06:24 [emerg] 1#1: unexpected "}" in /usr/local/nginx/conf/nginx.conf:119
+2019/09/11 08:06:26 [emerg] 1#1: unexpected "}" in /usr/local/nginx/conf/nginx.conf:119
+2019/09/11 08:06:29 [emerg] 1#1: unexpected "}" in /usr/local/nginx/conf/nginx.conf:119
+2019/09/11 08:06:36 [emerg] 1#1: unexpected "}" in /usr/local/nginx/conf/nginx.conf:119
+2019/09/11 08:06:49 [emerg] 1#1: unexpected "}" in /usr/local/nginx/conf/nginx.conf:119
+2019/09/11 08:07:15 [emerg] 1#1: unexpected "}" in /usr/local/nginx/conf/nginx.conf:119
+2019/09/11 08:08:06 [emerg] 1#1: unexpected "}" in /usr/local/nginx/conf/nginx.conf:119

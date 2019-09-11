@@ -7,7 +7,7 @@ services:
             - "80:80"
         restart: always
         volumes:
-            - ./web:/usr/local/nginx/html:ro
+            - ./_public:/usr/local/nginx/html:ro
             - ./nginx/conf/nginx.conf/:/usr/local/nginx/conf/nginx.conf:ro
             - ./nginx/log:/usr/local/nginx/logs:rw
         #links:
@@ -19,7 +19,7 @@ services:
     #        - "9000:9000"
     #    restart: always
     #    volumes:
-    #        - ./web:/usr/share/nginx/html:ro
+    #        - ./_public:/usr/share/nginx/html:ro
     #        #- ./php/conf/php.ini:/usr/local/etc/php/php.ini:ro
     #        - ./php/conf/php-fpm.conf:/usr/local/etc/php-fpm.conf:ro
     #        - ./php/log/php-fpm.log:/var/log/php-fpm/php-fpm.log:rw
