@@ -1,0 +1,3 @@
+2018/04/26 02:07:16 [error] 5#5: *1 open() "/etc/nginx/html/index.php" failed (2: No such file or directory), client: 192.168.33.1, server: localhost, request: "GET /index.php?r=site/index HTTP/1.1", host: "www.jidan.com"
+2018/04/26 02:07:17 [error] 5#5: *1 open() "/etc/nginx/html/favicon.ico" failed (2: No such file or directory), client: 192.168.33.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "www.jidan.com", referrer: "http://www.jidan.com/index.php?r=site/index"
+2018/04/26 02:07:19 [error] 5#5: *1 open() "/etc/nginx/html/index.php" failed (2: No such file or directory), client: 192.168.33.1, server: localhost, request: "GET /index.php?r=site/index HTTP/1.1", host: "www.jidan.com"
