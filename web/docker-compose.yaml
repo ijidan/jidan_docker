@@ -46,6 +46,7 @@ services:
             MYSQL_ROOT_PASSWORD: "root"
             MYSQL_USER: "jidan"
             MYSQL_PASSWORD: "jidan"
+        command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     mongo:
       image: mongo
       ports:
