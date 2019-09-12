@@ -29,3 +29,4 @@
 2019/09/11 08:06:49 [emerg] 1#1: unexpected "}" in /usr/local/nginx/conf/nginx.conf:119
 2019/09/11 08:07:15 [emerg] 1#1: unexpected "}" in /usr/local/nginx/conf/nginx.conf:119
 2019/09/11 08:08:06 [emerg] 1#1: unexpected "}" in /usr/local/nginx/conf/nginx.conf:119
+2019/09/11 08:11:20 [error] 6#6: *1 directory index of "/usr/local/nginx/html/" is forbidden, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", host: "localhost"

@@ -24,13 +24,13 @@ services:
             - ./php/conf/php.ini:/usr/local/etc/php/php.ini:ro
             - ./php/conf/php-fpm.conf:/usr/local/etc/php-fpm.conf:ro
             - ./php/log/php-fpm.log:/var/log/php-fpm/php-fpm.log:rw
-#        links:
-#            - mysql:mysql
-#            - mongo:mongo
-#            - redis:redis
-#            - memcached:memcached
-#            - elasticsearch:elasticsearch
-#            - rabbitmq:rabbitmq
+        links:
+            - mysql:mysql
+            - mongo:mongo
+            - redis:redis
+            - memcached:memcached
+            - elasticsearch:elasticsearch
+            - rabbitmq:rabbitmq
     mysql:
         image: mysql:latest
         ports:
@@ -45,7 +45,7 @@ services:
         environment:
             MYSQL_ROOT_PASSWORD: "root"
             MYSQL_USER: "jidan"
-    #        MYSQL_PASSWORD: "jidan"
+            MYSQL_PASSWORD: "jidan"
     mongo:
       image: mongo
       ports:
@@ -62,6 +62,16 @@ services:
       ports:
         - "11211:11211"
       restart: always
+#    solr:
+#      image: solr
+#      ports:
+#        - "8983:8983"
+#      volumes:
+#        - ./data:/opt/solr/server/solr/mycores
+#      entrypoint:
+#        - docker-entrypoint.sh
+#        - solr-precreate
+#        - mycore
     elasticsearch:
       image: elasticsearch:5.1.1
       ports:
