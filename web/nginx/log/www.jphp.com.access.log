@@ -103,3 +103,7 @@
 192.168.33.1 - - [11/Sep/2019:13:29:53 +0800] "GET /index.php?r=site/index HTTP/1.1" 200 85310 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36"
 192.168.33.1 - - [11/Sep/2019:13:37:01 +0800] "GET /index.php?r=site/index HTTP/1.1" 200 85319 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36"
 192.168.33.1 - - [11/Sep/2019:14:08:02 +0800] "GET /index.php?r=site/index HTTP/1.1" 200 85296 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36"
+192.168.33.1 - - [11/Sep/2019:18:34:20 +0800] "GET /?r=site/index HTTP/1.1" 200 88827 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36"
+192.168.33.1 - - [11/Sep/2019:18:34:21 +0800] "GET /favicon.ico HTTP/1.1" 200 88648 "http://www.jphp.com/?r=site/index" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36"
+192.168.33.1 - - [12/Sep/2019:09:02:29 +0800] "GET /?r=site/index HTTP/1.1" 200 90839 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36"
+192.168.33.1 - - [12/Sep/2019:09:02:31 +0800] "GET /favicon.ico HTTP/1.1" 200 90721 "http://www.jphp.com/?r=site/index" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36"

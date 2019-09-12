@@ -18,8 +18,8 @@ COPY ./file/mongodb-1.1.9.tgz /usr/local/src/
 # 4. xml, xmlrpc, wddx require libxml2-dev and libxslt-dev.
 # 5. Line `&& :\` is just for better reading and do nothing.
 RUN apt-get update \
-	&& apt-get install -y wget gcc make perl zip unzip openssl openssl-devel vim \
-    && apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev \
+	&& apt-get install -y wget gcc make perl zip unzip openssl vim \
+    && apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev libmemcached-dev zlib1g-dev \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install gd \
 #    && :\
@@ -115,15 +115,14 @@ RUN apt-get update \
 #    `Package "xxx" does not have REST xml available`
 # Please turn on proxy (The proxy IP may be docker host IP or others):
 # RUN pear config-set http_proxy http://10.0.75.1:1080
-#MondoDB
-#RUN pecl install mongodb \
-#    && docker-php-ext-enable mongodb
+#memcached
+RUN pecl install memcached-3.0.4 \
+    && docker-php-ext-enable memcached
+#swoole
+RUN pecl install swoole-4.4.5 \
+    && docker-php-ext-enable swoole
 
 
-#Composer
-COPY ./file/composer /usr/local/bin/
-RUN cd /usr/local/bin \
-	&& chmod +x composer
 
 #source install
 WORKDIR /usr/local/src
@@ -139,7 +138,7 @@ RUN unzip phpredis-master.zip \
     && rm -rf phpredis-master \
     && docker-php-ext-enable redis
 
-##RUN wget http://launchpad.net/libmemcached/1.0/1.0.18/+download/libmemcached-1.0.18.tar.gz \
+#RUN wget http://launchpad.net/libmemcached/1.0/1.0.18/+download/libmemcached-1.0.18.tar.gz \
 #RUN tar zxvf libmemcached-1.0.18.tar.gz \
 #	&& rm libmemcached-1.0.18.tar.gz \
 #    && cd libmemcached-1.0.18 \
@@ -147,6 +146,9 @@ RUN unzip phpredis-master.zip \
 #    && make -j$(nproc) \
 #    && make install \
 #    && rm -rf libmemcached-1.0.18
+#
+#
+
 
 #
 ##RUN  wget http://github.com/php-memcached-dev/php-memcached/archive/php7.zip \
@@ -173,6 +175,11 @@ RUN unzip phpredis-master.zip \
 #	 )\
 #	 && rm -rf mongodb-1.1.9 \
 #	 && docker-php-ext-enable mongodb
+
+#Composer
+COPY ./file/composer /usr/local/bin/
+RUN cd /usr/local/bin \
+	&& chmod +x composer
 
 EXPOSE 9000
 
