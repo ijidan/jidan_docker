@@ -1,0 +1,9 @@
+
+全部项目：
+	https://releases.hashicorp.com/
+
+consul
+	https://releases.hashicorp.com/consul/
+
+consul-template
+	https://releases.hashicorp.com/consul-template/
