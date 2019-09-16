@@ -1,6 +1,48 @@
 version: '2'
 
 services:
+    # consul server，对外暴露的ui接口为8500，只有在2台consul服务器的情况下集群才起作用
+    consulserver:
+      image: progrium/consul:latest
+      hostname: consulserver
+      ports:
+        - "8300"
+        - "8400"
+        - "8500:8500"
+        - "53"
+      command: -server -ui-dir /ui -data-dir /tmp/consul --bootstrap-expect=3
+    # consul server1在consul server服务起来后，加入集群中
+    consulserver1:
+      image: progrium/consul:latest
+      hostname: consulserver1
+      depends_on:
+        - "consulserver"
+      ports:
+        - "8300"
+        - "8400"
+        - "8500"
+        - "53"
+      command: -server -data-dir /tmp/consul -join consulserver
+    # consul server2在consul server服务起来后，加入集群中
+    consulserver2:
+      image: progrium/consul:latest
+      hostname: consulserver2
+      depends_on:
+        - "consulserver"
+      ports:
+        - "8300"
+        - "8400"
+        - "8500"
+        - "53"
+      command: -server -data-dir /tmp/consul -join consulserver
+    registrator:
+      image: gliderlabs/registrator:master
+      hostname: registrator
+      depends_on:
+        - "consulserver"
+      volumes:
+        - "./registrator/tmp/docker.sock:/tmp/docker.sock"
+      command: -internal consul://consulserver:8500
     nginx:
         build: ./nginx/
         ports:
@@ -26,11 +68,11 @@ services:
             - ./php/log/php-fpm.log:/var/log/php-fpm/php-fpm.log:rw
         links:
             - mysql:mysql
-            - mongo:mongo
+#            - mongo:mongo
             - redis:redis
             - memcached:memcached
-            - elasticsearch:elasticsearch
-            - rabbitmq:rabbitmq
+#            - elasticsearch:elasticsearch
+#            - rabbitmq:rabbitmq
     mysql:
         image: mysql:latest
         ports:
@@ -47,10 +89,10 @@ services:
             MYSQL_USER: "jidan"
             MYSQL_PASSWORD: "jidan"
         command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-    mongo:
-      image: mongo
-      ports:
-        - "27017:27017"
+#    mongo:
+#      image: mongo
+#      ports:
+#        - "27017:27017"
     redis:
       image: redis
       ports:
@@ -73,15 +115,15 @@ services:
 #        - docker-entrypoint.sh
 #        - solr-precreate
 #        - mycore
-    elasticsearch:
-      image: elasticsearch:5.1.1
-      ports:
-        - "9200:9200"
-        - "9300:9300"
-      volumes:
-        - ./elasticsearch/log/err.log:/tmp/hs_err_pid1.log:rw
-    rabbitmq:
-      image: rabbitmq:3.6.1-management
-      ports:
-        - "15672:15672"
-        - "5672:5672"
+#    elasticsearch:
+#      image: elasticsearch:5.1.1
+#      ports:
+#        - "9200:9200"
+#        - "9300:9300"
+#      volumes:
+#        - ./elasticsearch/log/err.log:/tmp/hs_err_pid1.log:rw
+#    rabbitmq:
+#      image: rabbitmq:3.6.1-management
+#      ports:
+#        - "15672:15672"
+#        - "5672:5672"
