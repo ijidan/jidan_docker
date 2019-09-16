@@ -40,10 +40,16 @@ services:
       hostname: registrator
       depends_on:
         - "consulserver"
+        - "consul_template"
       volumes:
-        - "./registrator/tmp/docker.sock:/tmp/docker.sock"
+        - "/var/run/docker.sock:/tmp/docker.sock"
       command: -internal consul://consulserver:8500
-    nginx:
+    consul_template:
+        image: ./consul_template
+        hostname: consul_template
+        depends_on:
+          - "web"
+    web:
         build: ./nginx/
         ports:
             - "80:80"

@@ -1,0 +1,22 @@
+#tcp {
+#stream{
+	upstream app_tcp {
+	  #least_conn;
+	  server 192.168.48.8:8001 max_fails=3 fail_timeout=60 weight=1;
+	  
+	}
+
+	server {
+	  listen 8001;
+	  
+	  proxy_connect_timeout 5s;
+	  proxy_timeout 30s; 
+	  ###proxy_timeout 24h; 
+	  ###这个参数在使用EMQ压力测试时很有用，刚开始设备的超时时间过段，导致测试一小会儿就出现 {shutdown,connack_timeout}
+
+	  proxy_pass app_tcp;
+
+	}
+#}
+
+
