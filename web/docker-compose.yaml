@@ -11,30 +11,30 @@ services:
         - "8500:8500"
         - "53"
       command: -server -ui-dir /ui -data-dir /tmp/consul --bootstrap-expect=1
-#    # consul server1在consul server服务起来后，加入集群中
-#    consulserver1:
+    # consul server1在consul server服务起来后，加入集群中
+#    consul_server_1:
 #      image: progrium/consul:latest
-#      hostname: consulserver1
+#      hostname: consul_server_1
 #      depends_on:
-#        - "consulserver"
+#        - "consul_server"
 #      ports:
 #        - "8300"
 #        - "8400"
 #        - "8500"
 #        - "53"
-#      command: -server -data-dir /tmp/consul -join consulserver
+#      command: -server -data-dir /tmp/consul -join consul_server
 #    # consul server2在consul server服务起来后，加入集群中
-#    consulserver2:
+#    consul_server_2:
 #      image: progrium/consul:latest
-#      hostname: consulserver2
+#      hostname: consul_server_2
 #      depends_on:
-#        - "consulserver"
+#        - "consul_server"
 #      ports:
 #        - "8300"
 #        - "8400"
 #        - "8500"
 #        - "53"
-#      command: -server -data-dir /tmp/consul -join consulserver
+#      command: -server -data-dir /tmp/consul -join consul_server
     registrator:
       image: gliderlabs/registrator:master
       hostname: registrator
