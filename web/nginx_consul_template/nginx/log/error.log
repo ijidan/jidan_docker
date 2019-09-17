@@ -1,7 +1,7 @@
-2019/09/16 15:16:07 [notice] 19#19: signal process started
-2019/09/17 10:53:15 [emerg] 6#6: unknown directive "grpc_pass" in /etc/nginx/conf.d/consul-templates.conf:63
-2019/09/17 10:59:29 [emerg] 19#19: unknown directive "grpc_pass" in /etc/nginx/conf.d/consul-templates.conf:63
-2019/09/17 10:59:30 [emerg] 6#6: unknown directive "grpc_pass" in /etc/nginx/conf.d/consul-templates.conf:63
-2019/09/17 11:02:14 [notice] 19#19: signal process started
-2019/09/17 11:16:57 [notice] 19#19: signal process started
-2019/09/17 11:23:50 [notice] 19#19: signal process started
+2019/09/17 13:57:52 [notice] 19#19: signal process started
+2019/09/17 13:57:52 [error] 19#19: open() "/var/run/nginx.pid" failed (2: No such file or directory)
+2019/09/17 14:15:35 [notice] 18#18: signal process started
+2019/09/17 14:17:45 [notice] 19#19: signal process started
+2019/09/17 14:19:02 [notice] 19#19: signal process started
+2019/09/17 14:24:54 [notice] 17#17: signal process started
+2019/09/17 14:34:01 [notice] 19#19: signal process started

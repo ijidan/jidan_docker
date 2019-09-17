@@ -54,6 +54,8 @@ services:
           - consul_server:consul
         ports:
           - "8100:80"
+        depends_on:
+          - "nginx"
     nginx:
         build: ./nginx/
         ports:
@@ -67,6 +69,7 @@ services:
             - ./nginx/log:/etc/nginx/logs:rw
         links:
             - php:php
+
     php:
         build: ./php/
         ports:
@@ -119,7 +122,6 @@ services:
       image: memcached:latest
       ports:
         - "11211:11211"
-
       expose:
         - "11211"
       restart: always
