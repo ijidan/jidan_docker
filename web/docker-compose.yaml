@@ -2,53 +2,48 @@ version: '2'
 
 services:
     # consul server，对外暴露的ui接口为8500，只有在2台consul服务器的情况下集群才起作用
-    consulserver:
+    consul_server:
       image: progrium/consul:latest
-      hostname: consulserver
+      hostname: consul_server
       ports:
         - "8300"
         - "8400"
         - "8500:8500"
         - "53"
-      command: -server -ui-dir /ui -data-dir /tmp/consul --bootstrap-expect=3
-    # consul server1在consul server服务起来后，加入集群中
-    consulserver1:
-      image: progrium/consul:latest
-      hostname: consulserver1
-      depends_on:
-        - "consulserver"
-      ports:
-        - "8300"
-        - "8400"
-        - "8500"
-        - "53"
-      command: -server -data-dir /tmp/consul -join consulserver
-    # consul server2在consul server服务起来后，加入集群中
-    consulserver2:
-      image: progrium/consul:latest
-      hostname: consulserver2
-      depends_on:
-        - "consulserver"
-      ports:
-        - "8300"
-        - "8400"
-        - "8500"
-        - "53"
-      command: -server -data-dir /tmp/consul -join consulserver
+      command: -server -ui-dir /ui -data-dir /tmp/consul --bootstrap-expect=1
+#    # consul server1在consul server服务起来后，加入集群中
+#    consulserver1:
+#      image: progrium/consul:latest
+#      hostname: consulserver1
+#      depends_on:
+#        - "consulserver"
+#      ports:
+#        - "8300"
+#        - "8400"
+#        - "8500"
+#        - "53"
+#      command: -server -data-dir /tmp/consul -join consulserver
+#    # consul server2在consul server服务起来后，加入集群中
+#    consulserver2:
+#      image: progrium/consul:latest
+#      hostname: consulserver2
+#      depends_on:
+#        - "consulserver"
+#      ports:
+#        - "8300"
+#        - "8400"
+#        - "8500"
+#        - "53"
+#      command: -server -data-dir /tmp/consul -join consulserver
     registrator:
       image: gliderlabs/registrator:master
       hostname: registrator
-      depends_on:
-        - "consulserver"
-        - "consul_template"
       volumes:
         - "/var/run/docker.sock:/tmp/docker.sock"
-      command: -internal consul://consulserver:8500
-    consul_template:
-        image: ./consul_template
-        hostname: consul_template
-        depends_on:
-          - "web"
+      command: -internal consul://consul_server:8500
+#    consul_template:
+#        image: ./nginx_consul_template
+#        hostname: nginx_consul_template
     web:
         build: ./nginx/
         ports:
@@ -66,6 +61,8 @@ services:
         build: ./php/
         ports:
             - "9000:9000"
+        expose:
+          - "9000"
         restart: always
         volumes:
             - ./_public:/usr/share/nginx/html:ro
@@ -103,6 +100,8 @@ services:
       image: redis
       ports:
         - "6379:6379"
+      expose:
+        - "3306"
       volumes:
         - ./redis/data:/data:rw
       restart: always
@@ -110,6 +109,9 @@ services:
       image: memcached:latest
       ports:
         - "11211:11211"
+
+      expose:
+        - "11211"
       restart: always
 #    solr:
 #      image: solr

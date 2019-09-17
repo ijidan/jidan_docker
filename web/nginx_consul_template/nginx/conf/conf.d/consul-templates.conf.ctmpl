@@ -1,0 +1,115 @@
+upstream app {
+  least_conn;
+  {{range service "beego-hello"}}server {{.Address}}:{{.Port}} max_fails=3 fail_timeout=60 weight=1;
+  {{else}}server 127.0.0.1:65535; # force a 502{{end}}
+}
+
+upstream golang-grpc {
+  #least_conn;
+  {{range service "golang-grpc"}}server {{.Address}}:{{.Port}} max_fails=3 fail_timeout=30 weight=1;
+  {{else}}server 127.0.0.1:65535; # force a 502{{end}}
+}
+
+upstream grpc-stream {
+  #least_conn;
+  {{range service "grpc-stream"}}server {{.Address}}:{{.Port}} max_fails=3 fail_timeout=30 weight=1;
+  {{else}}server 127.0.0.1:65535; # force a 502{{end}}
+}
+
+upstream grpc-auth-stream {
+  #least_conn;
+  {{range service "grpc-auth-stream"}}server {{.Address}}:{{.Port}} max_fails=3 fail_timeout=30 weight=1;
+  {{else}}server 127.0.0.1:65535; # force a 502{{end}}
+}
+
+upstream grpc-stream-nginx {
+  #least_conn;
+  {{range service "grpc-stream-nginx"}}server {{.Address}}:{{.Port}} max_fails=3 fail_timeout=30 weight=1;
+  {{else}}server 127.0.0.1:65535; # force a 502{{end}}
+}
+
+server {
+  listen 80 default_server;
+
+  access_log  /var/log/nginx/access_beego-hello.log;
+  error_log  /var/log/nginx/error_beego-hello.log warn;
+
+  location / {
+    proxy_set_header Host $host;
+    proxy_set_header Http-Host $http_host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header REMOTE-HOST $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header HTTP_X_FORWARDED_FOR $remote_addr;
+
+    proxy_pass http://app;
+
+    # host 修改为真实的域名和端口
+  #  proxy_set_header Host $host;
+
+    # 客户端真实ip
+  #  proxy_set_header X-Real-IP $remote_addr;
+    
+  #  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    #proxy_set_header    HTTP_X_FORWARDED_FOR $remote_addr;  #关键句
+
+    # 客户端真实协议(http/https)
+    #proxy_set_header X-Forwarded-Proto $scheme;
+  }
+}
+
+server {
+  listen 50051 http2;
+
+  access_log  /var/log/nginx/access_golang-grpc.log main;
+  error_log  /var/log/nginx/error_golang-grpc.log warn;
+ 
+  location / {
+    grpc_pass grpc://golang-grpc;
+  }
+
+  #location /proto.Hello {
+  #  grpc_pass grpc://golang-grpc;
+  #}
+}
+
+server {
+  listen 50052 http2;
+
+  access_log  /var/log/nginx/access_grpc-stream.log main;
+  error_log  /var/log/nginx/error_grpc-stream.log warn;
+ 
+  location / {
+    grpc_pass grpc://grpc-stream;
+  }
+}
+
+server {
+  listen 50053 http2;
+
+  access_log  /var/log/nginx/access_grpc-auth-stream.log main;
+  error_log  /var/log/nginx/error_grpc-auth-stream.log warn;
+ 
+  location / {
+    grpc_pass grpc://grpc-auth-stream;
+  }
+}
+
+server {
+  listen 50054 ssl http2;
+
+  access_log  /var/log/nginx/access_grpc-stream-nginx.log main;
+  error_log  /var/log/nginx/error_grpc-stream-nginx.log warn;
+ 
+  ssl_certificate     /etc/nginx/conf.d/ssl/server.crt;
+  ssl_certificate_key /etc/nginx/conf.d/ssl/server.key;
+
+  location / {
+    grpc_pass grpcs://grpc-stream-nginx;
+    
+    grpc_set_header Host $http_host;
+    grpc_set_header X-Real-IP $remote_addr;
+    grpc_set_header X-Forward-For $proxy_add_x_forwarded_for;
+  }
+}
+

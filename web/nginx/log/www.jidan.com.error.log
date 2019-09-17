@@ -1,1 +1,0 @@
-2019/09/10 16:09:29 [error] 6#6: *1 open() "/etc/nginx/html/favicon.ico" failed (2: No such file or directory), client: 192.168.33.1, server: www.jidan.com, request: "GET /favicon.ico HTTP/1.1", host: "www.jidan.com", referrer: "http://www.jidan.com/"
