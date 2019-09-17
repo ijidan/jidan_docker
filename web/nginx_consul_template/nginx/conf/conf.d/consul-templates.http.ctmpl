@@ -1,6 +1,6 @@
 upstream http_ups {
    least_conn;
-  {{range service "http_service"}}
+  {{range service "service_http"}}
    server {{.Address}}:{{.Port}} max_fails=3 fail_timeout=60 weight=1;
   {{else}}
    server 127.0.0.1:80; # force a 502

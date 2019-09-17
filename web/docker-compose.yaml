@@ -69,7 +69,9 @@ services:
             - ./nginx/log:/etc/nginx/logs:rw
         links:
             - php:php
-
+        environment:
+          - SERVICE_80_NAME=service_http
+          - SERVICE_443_NAME=service_https
     php:
         build: ./php/
         ports:
