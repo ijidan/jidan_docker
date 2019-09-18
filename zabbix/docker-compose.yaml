@@ -1,0 +1,25 @@
+version: '2'
+
+services:
+    zabbix-mysql:
+        image: mysql:5.7
+        container_name: zabbix-mysql
+        environment:
+            - MYSQL_ROOT_PASSWORD=zhuan1234
+        restart: always
+    zabbix-server:
+        image: monitoringartist/zabbix-xxl
+        links:
+            - zabbix-mysql:mysqlhost
+        container_name: zabbix-server
+        restart: always
+        depends_on:
+            - zabbix-mysql
+        ports:
+            - "8888:80"
+        environment:
+            - ZS_DBHost=mysqlhost
+            - ZS_DBUser=root
+            - ZS_DBPassword=zhuan1234
+
+
