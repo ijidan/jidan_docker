@@ -121,7 +121,9 @@ RUN pecl install memcached-3.0.4 \
 #swoole
 RUN pecl install swoole-4.4.5 \
     && docker-php-ext-enable swoole
-
+#solr
+RUN pecl install solr-2.5.0 \
+    && docker-php-ext-enable solr
 
 
 #source install

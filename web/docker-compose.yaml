@@ -2,15 +2,15 @@ version: '2'
 
 services:
     # consul server，对外暴露的ui接口为8500，只有在2台consul服务器的情况下集群才起作用
-    consul_server:
-      image: progrium/consul:latest
-      hostname: consul_server
-      ports:
-        - "8300"
-        - "8400"
-        - "8500:8500"
-        - "53"
-      command: -server -ui-dir /ui -data-dir /tmp/consul --bootstrap-expect=1
+#    consul_server:
+#      image: progrium/consul:latest
+#      hostname: consul_server
+#      ports:
+#        - "8300"
+#        - "8400"
+#        - "8500:8500"
+#        - "53"
+#      command: -server -ui-dir /ui -data-dir /tmp/consul --bootstrap-expect=1
     # consul server1在consul server服务起来后，加入集群中
 #    consul_server_1:
 #      image: progrium/consul:latest
@@ -35,27 +35,27 @@ services:
 #        - "8500"
 #        - "53"
 #      command: -server -data-dir /tmp/consul -join consul_server
-    registrator:
-      image: gliderlabs/registrator:master
-      hostname: registrator
-      volumes:
-        - "/var/run/docker.sock:/tmp/docker.sock"
-      command: -internal consul://consul_server:8500
-    nginx_consul_template:
-        build: ./nginx_consul_template
-        hostname: nginx_consul_template
-        restart: always
-        volumes:
-          - "./nginx_consul_template/nginx/www:/usr/share/nginx/html"
-          - "./nginx_consul_template/nginx/conf/nginx.conf:/etc/nginx/nginx.conf"
-          - "./nginx_consul_template/nginx/conf/conf.d:/etc/nginx/conf.d"
-          - "./nginx_consul_template/nginx/log:/var/log/nginx"
-        links:
-          - consul_server:consul
-        ports:
-          - "8100:80"
-        depends_on:
-          - "nginx"
+#    registrator:
+#      image: gliderlabs/registrator:master
+#      hostname: registrator
+#      volumes:
+#        - "/var/run/docker.sock:/tmp/docker.sock"
+#      command: -internal consul://consul_server:8500
+#    nginx_consul_template:
+#        build: ./nginx_consul_template
+#        hostname: nginx_consul_template
+#        restart: always
+#        volumes:
+#          - "./nginx_consul_template/nginx/www:/usr/share/nginx/html"
+#          - "./nginx_consul_template/nginx/conf/nginx.conf:/etc/nginx/nginx.conf"
+#          - "./nginx_consul_template/nginx/conf/conf.d:/etc/nginx/conf.d"
+#          - "./nginx_consul_template/nginx/log:/var/log/nginx"
+#        links:
+#          - consul_server:consul
+#        ports:
+#          - "8100:80"
+#        depends_on:
+#          - "nginx"
     nginx:
         build: ./nginx/
         ports:
@@ -87,9 +87,10 @@ services:
         links:
             - mysql:mysql
 #            - mongo:mongo
-            - redis:redis
-            - memcached:memcached
-#            - elasticsearch:elasticsearch
+#            - redis:redis
+#            - memcached:memcached
+            - solr:solr
+            - elasticsearch:elasticsearch
 #            - rabbitmq:rabbitmq
     mysql:
         image: mysql:latest
@@ -111,39 +112,39 @@ services:
 #      image: mongo
 #      ports:
 #        - "27017:27017"
-    redis:
-      image: redis
+#    redis:
+#      image: redis
+#      ports:
+#        - "6379:6379"
+#      expose:
+#        - "3306"
+#      volumes:
+#        - ./redis/data:/data:rw
+#      restart: always
+#    memcached:
+#      image: memcached:latest
+#      ports:
+#        - "11211:11211"
+#      expose:
+#        - "11211"
+#      restart: always
+    solr:
+      image: solr
       ports:
-        - "6379:6379"
-      expose:
-        - "3306"
+        - "8983:8983"
       volumes:
-        - ./redis/data:/data:rw
-      restart: always
-    memcached:
-      image: memcached:latest
+        - ./data:/opt/solr/server/solr/mycores
+      entrypoint:
+        - docker-entrypoint.sh
+        - solr-precreate
+        - mycore
+    elasticsearch:
+      image: elasticsearch:5.1.1
       ports:
-        - "11211:11211"
-      expose:
-        - "11211"
-      restart: always
-#    solr:
-#      image: solr
-#      ports:
-#        - "8983:8983"
-#      volumes:
-#        - ./data:/opt/solr/server/solr/mycores
-#      entrypoint:
-#        - docker-entrypoint.sh
-#        - solr-precreate
-#        - mycore
-#    elasticsearch:
-#      image: elasticsearch:5.1.1
-#      ports:
-#        - "9200:9200"
-#        - "9300:9300"
-#      volumes:
-#        - ./elasticsearch/log/err.log:/tmp/hs_err_pid1.log:rw
+        - "9200:9200"
+        - "9300:9300"
+      volumes:
+        - ./elasticsearch/log/err.log:/tmp/hs_err_pid1.log:rw
 #    rabbitmq:
 #      image: rabbitmq:3.6.1-management
 #      ports:
