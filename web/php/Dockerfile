@@ -22,11 +22,12 @@ RUN apt-get update \
     && apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev libmemcached-dev zlib1g-dev \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install gd \
+    && docker-php-ext-install fileinfo \
 #    && :\
 #    && apt-get install -y libicu-dev \
 #    && docker-php-ext-install intl \
 #    && :\
-#    && apt-get install -y libxml2-dev \
+    && apt-get install -y libxml2-dev \
 #    && apt-get install -y libxslt-dev \
 #    && docker-php-ext-install soap \
 #    && docker-php-ext-install xsl \
@@ -41,7 +42,7 @@ RUN apt-get update \
     && docker-php-ext-install pdo \
     && docker-php-ext-install pdo_mysql \
     && docker-php-ext-install mysqli \
-    && docker-php-ext-install mbstring
+    && docker-php-ext-install mbstring \
     #&& docker-php-ext-install exif \
     #&& docker-php-ext-install bcmath \
     #&& docker-php-ext-install calendar \
@@ -65,11 +66,14 @@ RUN apt-get update \
     #&& :\
 	#&& apt-get install -y libmcrypt-dev \
 	#&& docker-php-ext-install mcrypt \
-    #&& :\
-	#&& apt-get install -y curl \
-	#&& apt-get install -y libcurl3 \
-	#&& apt-get install -y libcurl4-openssl-dev \
-	#&& docker-php-ext-install curl \
+#    && :\
+#	&& apt-get install -y curl \
+#	&& apt-get install -y libcurl3 \
+	&& apt-get install -y libcurl4-gnutls-dev
+#	&& apt-get install -y libcurl4-openssl-dev \
+#	&& apt-get install -y curl-devel \
+#	&& apt-get install -y libcurl-devel \
+#	&& docker-php-ext-install curl
 	#&& :\
 	#&& apt-get install -y libreadline-dev \
 	#&& docker-php-ext-install readline \
@@ -118,27 +122,36 @@ RUN apt-get update \
 #memcached
 RUN pecl install memcached-3.0.4 \
     && docker-php-ext-enable memcached
+#Redis
+RUN pecl install redis-5.0.2 \
+    && docker-php-ext-enable redis
+#MongoDB
+RUN pecl install mongodb-1.6.0 \
+   && docker-php-ext-enable mongodb
 #swoole
 RUN pecl install swoole-4.4.5 \
     && docker-php-ext-enable swoole
 #solr
 RUN pecl install solr-2.5.0 \
     && docker-php-ext-enable solr
+#msgpack
+RUN pecl install msgpack-2.0.3 \
+	&& docker-php-ext-enable msgpack
 
 
 #source install
-WORKDIR /usr/local/src
-RUN unzip phpredis-master.zip \
-    && rm phpredis-master.zip \
-    && ( \
-        cd phpredis-master \
-        && phpize \
-        && ./configure \
-        && make -j$(nproc) \
-        && make install \
-    ) \
-    && rm -rf phpredis-master \
-    && docker-php-ext-enable redis
+#WORKDIR /usr/local/src
+#RUN unzip phpredis-master.zip \
+#    && rm phpredis-master.zip \
+#    && ( \
+#        cd phpredis-master \
+#        && phpize \
+#        && ./configure \
+#        && make -j$(nproc) \
+#        && make install \
+#    ) \
+#    && rm -rf phpredis-master \
+#    && docker-php-ext-enable redis
 
 #RUN wget http://launchpad.net/libmemcached/1.0/1.0.18/+download/libmemcached-1.0.18.tar.gz \
 #RUN tar zxvf libmemcached-1.0.18.tar.gz \

@@ -85,12 +85,12 @@ services:
             - ./php/conf/php-fpm.conf:/usr/local/etc/php-fpm.conf:ro
             - ./php/log/php-fpm.log:/var/log/php-fpm/php-fpm.log:rw
         links:
-            - mysql:mysql
+             - mysql:mysql
 #            - mongo:mongo
 #            - redis:redis
 #            - memcached:memcached
-            - solr:solr
-            - elasticsearch:elasticsearch
+#            - solr:solr
+             - es:es
 #            - rabbitmq:rabbitmq
     mysql:
         image: mysql:latest
@@ -128,23 +128,35 @@ services:
 #      expose:
 #        - "11211"
 #      restart: always
-    solr:
-      image: solr
-      ports:
-        - "8983:8983"
-      volumes:
-        - ./data:/opt/solr/server/solr/mycores
-      entrypoint:
-        - docker-entrypoint.sh
-        - solr-precreate
-        - mycore
-    elasticsearch:
-      image: elasticsearch:5.1.1
-      ports:
-        - "9200:9200"
-        - "9300:9300"
-      volumes:
-        - ./elasticsearch/log/err.log:/tmp/hs_err_pid1.log:rw
+#    solr:
+#      image: solr:7.5.0
+#      ports:
+#        - "8983:8983"
+#      volumes:
+#        - ./solr/data:/opt/solr/server/solr/mycores
+#      entrypoint:
+#        - docker-entrypoint.sh
+#        - solr-precreate
+#        - mycore
+    es:
+        build: ./elasticsearch
+        ports:
+          - "9200:9200"
+          - "9300:9300"
+        volumes:
+          - ./elasticsearch/data:/usr/share/elasticsearch/data:rw
+          - ./elasticsearch/log/err.log:/tmp/hs_err_pid1.log:rw
+        environment:
+          - cluster.name=docker-cluster
+          - bootstrap.memory_lock=true
+          - xpack.security.enabled=false
+#          - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
+          - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+#    es_head:
+#      image: mobz/elasticsearch-head:5-alpine
+
+
+
 #    rabbitmq:
 #      image: rabbitmq:3.6.1-management
 #      ports:
