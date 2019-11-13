@@ -60,7 +60,7 @@ services:
         build: ./nginx/
         ports:
             - "80:80"
-            - "443:443"
+            - "444:443"
         restart: always
         volumes:
             - ./_public:/etc/nginx/html:ro
@@ -90,7 +90,7 @@ services:
 #            - redis:redis
 #            - memcached:memcached
 #            - solr:solr
-             - es:es
+#             - es:es
 #            - rabbitmq:rabbitmq
     mysql:
         image: mysql:latest
@@ -138,20 +138,20 @@ services:
 #        - docker-entrypoint.sh
 #        - solr-precreate
 #        - mycore
-    es:
-        build: ./elasticsearch
-        ports:
-          - "9200:9200"
-          - "9300:9300"
-        volumes:
-          - ./elasticsearch/data:/usr/share/elasticsearch/data:rw
-          - ./elasticsearch/log/err.log:/tmp/hs_err_pid1.log:rw
-        environment:
-          - cluster.name=docker-cluster
-          - bootstrap.memory_lock=true
-          - xpack.security.enabled=false
+#    es:
+#        build: ./elasticsearch
+#        ports:
+#          - "9200:9200"
+#          - "9300:9300"
+#        volumes:
+#          - ./elasticsearch/data:/usr/share/elasticsearch/data:rw
+#          - ./elasticsearch/log/err.log:/tmp/hs_err_pid1.log:rw
+#        environment:
+#          - cluster.name=docker-cluster
+#          - bootstrap.memory_lock=true
+#          - xpack.security.enabled=false
 #          - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
-          - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+#          - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
 #    es_head:
 #      image: mobz/elasticsearch-head:5-alpine
 
