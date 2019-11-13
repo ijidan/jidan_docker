@@ -21,13 +21,12 @@ class TestController extends HttpController {
 	 */
 	public function indexAction(Request $request) {
 
-        $app = WebApplication::getApp();
-        $view_path = $app->getViewPath();
-        $test_tpl = $view_path . DIRECTORY_SEPARATOR . "index.html";
-//        $content = file_get_contents($test_tpl);
-        $data = array("a" => 1, "b" => 2);
-        $template = new Template();
-        $content = $template->parse($test_tpl, $data);
+		$app = WebApplication::getApp();
+		$protectedPath = $app->getProtectedPath();
+		$test_tpl = $protectedPath . DIRECTORY_SEPARATOR . "Dist" . DIRECTORY_SEPARATOR . "index.html";
+		$data = array("a" => 1, "b" => 2);
+		$template = new Template();
+		$content = $template->parse($test_tpl, $data);
 
 		return new Response($content);
 	}
