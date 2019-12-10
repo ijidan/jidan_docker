@@ -1,21 +1,18 @@
-import _ from 'lodash';
-import './style.css';
-import printMe from "./print";
-
+import {cube} from "./math";
 
 function component() {
-	var element = document.createElement('div');
-	var btn=document.createElement('button');
 
-	// lodash 是由当前 script 脚本 import 导入进来的
-	element.innerHTML = _.join(['鸡蛋', '你好'], ' ');
-	element.classList.add('hello');
-
-	btn.innerHTML = 'Click me and check the console!';
-	btn.onclick = printMe;
-	element.appendChild(btn);
-
+	var element = document.createElement("pre");
+	element.innerHTML = [
+		"hello webpack",
+		"5 cubed is equal to " + cube(5)
+	].join("\r\n");
 	return element;
 }
 
-document.body.appendChild(component());
+if(process.env.NODE_ENV !== 'production'){
+	console.error('Looks like we are in Production mode!');
+}
+
+let element = component();
+document.body.appendChild(element);
