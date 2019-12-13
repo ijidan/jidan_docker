@@ -121,4 +121,5 @@ class ConsoleApplication implements ApplicationInterface {
     {
         // TODO: Implement getApp() method.
     }
+
 }

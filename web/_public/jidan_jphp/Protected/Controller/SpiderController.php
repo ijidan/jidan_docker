@@ -22,6 +22,8 @@ class SpiderController extends HttpController {
 	 * @return Response
 	 */
 	public function indexAction(Request $request) {
+		phpinfo();
+		dump("xxx",1);
 		$content="我的爬虫测试...";
 		return new Response($content);
 	}

@@ -409,7 +409,7 @@ class phpspider
         // 彩蛋
         $included_files = get_included_files();
         $content = file_get_contents($included_files[0]);
-        if (!preg_match("#/\* Do NOT delete this comment \*/#", $content) || !preg_match("#/\* 不要删除这段注释 \*/#", $content))
+	    if (!preg_match("#/\* Do NOT delete this comment \*/#", $content) || !preg_match("#/\* 不要删除这段注释 \*/#", $content))
         {
             $msg = "Unknown error...";
             log::error($msg);
@@ -746,7 +746,8 @@ class phpspider
     {
         // 检查运行命令的参数
         global $argv;
-        $start_file = $argv[0]; 
+        $start_file = $argv[0];
+
 
         // 命令
         $command = isset($argv[1]) ? trim($argv[1]) : 'start';
@@ -977,6 +978,7 @@ class phpspider
         // 集群、保存运行状态、多任务都需要Redis支持
         if ( self::$multiserver || self::$save_running_state || self::$tasknum > 1 ) 
         {
+        	die("dajfijadfiafjidfaj9ij");
             self::$use_redis = true;
 
             queue::set_connect('default', self::$queue_config);
@@ -1537,6 +1539,12 @@ class phpspider
         $method = ($method == 'post') ? 'post' : 'get';
         $params = empty($link['params']) ? array() : $link['params'];
         $html = requests::$method($url, $params);
+
+        echo "\r\n";
+        print_r($html);
+        echo "\r\n";
+        die("xxx");
+
         // 此url附加的数据不为空, 比如内容页需要列表页一些数据, 拼接到后面去
         if ($html && !empty($link['context_data'])) 
         {

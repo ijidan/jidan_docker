@@ -63,7 +63,7 @@ services:
             - "444:443"
         restart: always
         volumes:
-            - ./_public:/etc/nginx/html:ro
+            - ./_public:/etc/nginx/html:rw
             - ./nginx/conf/conf.d:/etc/nginx/conf.d:ro
             - ./nginx/conf/nginx.conf:/ect/nginx/nginx.conf:ro
             - ./nginx/log:/etc/nginx/logs:rw
@@ -80,7 +80,7 @@ services:
           - "9000"
         restart: always
         volumes:
-            - ./_public:/usr/share/nginx/html:ro
+            - ./_public:/usr/share/nginx/html:rw
             - ./php/conf/php.ini:/usr/local/etc/php/php.ini:ro
             - ./php/conf/php-fpm.conf:/usr/local/etc/php-fpm.conf:ro
             - ./php/log/php-fpm.log:/var/log/php-fpm/php-fpm.log:rw
