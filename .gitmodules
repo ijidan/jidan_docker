@@ -1,0 +1,3 @@
+[submodule "web/_public/jidan_jspider"]
+	path = web/_public/jidan_jspider
+	url = https://fp-anzhu@bitbucket.org/fp-anzhu/jidan_jspider.git

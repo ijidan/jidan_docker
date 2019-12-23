@@ -109,8 +109,10 @@ RUN apt-get update \
     #&& docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu \
     #&& docker-php-ext-install ldap \
 
-# Composer
-#RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer \
+#Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer \
+    && RUN cd /usr/local/bin \
+    && chmod +x composer
 
 # Install extension using pecl
 # Notice: if pecl install get error
@@ -192,9 +194,9 @@ RUN pecl install msgpack-2.0.3 \
 #	 && docker-php-ext-enable mongodb
 
 #Composer
-COPY ./file/composer /usr/local/bin/
-RUN cd /usr/local/bin \
-	&& chmod +x composer
+#COPY ./file/composer /usr/local/bin/
+#RUN cd /usr/local/bin \
+#	&& chmod +x composer
 
 EXPOSE 9000
 
