@@ -2,60 +2,60 @@ version: '2'
 
 services:
     # consul server，对外暴露的ui接口为8500，只有在2台consul服务器的情况下集群才起作用
-#    consul_server:
-#      image: progrium/consul:latest
-#      hostname: consul_server
-#      ports:
-#        - "8300"
-#        - "8400"
-#        - "8500:8500"
-#        - "53"
-#      command: -server -ui-dir /ui -data-dir /tmp/consul --bootstrap-expect=1
-    # consul server1在consul server服务起来后，加入集群中
-#    consul_server_1:
-#      image: progrium/consul:latest
-#      hostname: consul_server_1
-#      depends_on:
-#        - "consul_server"
-#      ports:
-#        - "8300"
-#        - "8400"
-#        - "8500"
-#        - "53"
-#      command: -server -data-dir /tmp/consul -join consul_server
-#    # consul server2在consul server服务起来后，加入集群中
-#    consul_server_2:
-#      image: progrium/consul:latest
-#      hostname: consul_server_2
-#      depends_on:
-#        - "consul_server"
-#      ports:
-#        - "8300"
-#        - "8400"
-#        - "8500"
-#        - "53"
-#      command: -server -data-dir /tmp/consul -join consul_server
-#    registrator:
-#      image: gliderlabs/registrator:master
-#      hostname: registrator
-#      volumes:
-#        - "/var/run/docker.sock:/tmp/docker.sock"
-#      command: -internal consul://consul_server:8500
-#    nginx_consul_template:
-#        build: ./nginx_consul_template
-#        hostname: nginx_consul_template
-#        restart: always
-#        volumes:
-#          - "./nginx_consul_template/nginx/www:/usr/share/nginx/html"
-#          - "./nginx_consul_template/nginx/conf/nginx.conf:/etc/nginx/nginx.conf"
-#          - "./nginx_consul_template/nginx/conf/conf.d:/etc/nginx/conf.d"
-#          - "./nginx_consul_template/nginx/log:/var/log/nginx"
-#        links:
-#          - consul_server:consul
-#        ports:
-#          - "8100:80"
-#        depends_on:
-#          - "nginx"
+    consul_server:
+      image: progrium/consul:latest
+      hostname: consul_server
+      ports:
+        - "8300"
+        - "8400"
+        - "8500:8500"
+        - "53"
+      command: -server -ui-dir /ui -data-dir /tmp/consul --bootstrap-expect=1
+     #consul server1在consul server服务起来后，加入集群中
+    consul_server_1:
+      image: progrium/consul:latest
+      hostname: consul_server_1
+      depends_on:
+        - "consul_server"
+      ports:
+        - "8300"
+        - "8400"
+        - "8500"
+        - "53"
+      command: -server -data-dir /tmp/consul -join consul_server
+    # consul server2在consul server服务起来后，加入集群中
+    consul_server_2:
+      image: progrium/consul:latest
+      hostname: consul_server_2
+      depends_on:
+        - "consul_server"
+      ports:
+        - "8300"
+        - "8400"
+        - "8500"
+        - "53"
+      command: -server -data-dir /tmp/consul -join consul_server
+    registrator:
+      image: gliderlabs/registrator:master
+      hostname: registrator
+      volumes:
+        - "/var/run/docker.sock:/tmp/docker.sock"
+      command: -internal consul://consul_server:8500
+    nginx_consul_template:
+        build: ./nginx_consul_template
+        hostname: nginx_consul_template
+        restart: always
+        volumes:
+          - "./nginx_consul_template/nginx/www:/usr/share/nginx/html"
+          - "./nginx_consul_template/nginx/conf/nginx.conf:/etc/nginx/nginx.conf"
+          - "./nginx_consul_template/nginx/conf/conf.d:/etc/nginx/conf.d"
+          - "./nginx_consul_template/nginx/log:/var/log/nginx"
+        links:
+          - consul_server:consul
+        ports:
+          - "8100:80"
+        depends_on:
+          - "nginx"
     nginx:
         build: ./nginx/
         ports:

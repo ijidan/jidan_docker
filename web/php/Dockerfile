@@ -1,4 +1,4 @@
-FROM php:7.1-fpm
+FROM php:5.6-fpm
 
 #COPY ./file/sources.list.stretch /etc/apt/sources.list
 COPY ./file/libmemcached-1.0.18.tar.gz /usr/local/src/

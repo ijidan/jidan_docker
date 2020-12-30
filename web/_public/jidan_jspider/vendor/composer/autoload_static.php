@@ -13,6 +13,7 @@ class ComposerStaticInit55a8e3f095259a35f7c2a1b746575ae9
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
+        '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         '253c157292f75eb38082b5acb06f3f01' => __DIR__ . '/..' . '/nikic/fast-route/src/functions.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
@@ -103,16 +104,20 @@ class ComposerStaticInit55a8e3f095259a35f7c2a1b746575ae9
         ),
         'S' => 
         array (
+            'Symfony\\Polyfill\\Php73\\' => 23,
             'Symfony\\Polyfill\\Php72\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Polyfill\\Intl\\Idn\\' => 26,
             'Symfony\\Polyfill\\Ctype\\' => 23,
+            'Symfony\\Contracts\\Service\\' => 26,
             'Symfony\\Component\\VarDumper\\' => 28,
             'Symfony\\Component\\Finder\\' => 25,
+            'Symfony\\Component\\Console\\' => 26,
             'Slim\\Views\\' => 11,
             'Slim\\PDO\\' => 9,
             'Slim\\Csrf\\' => 10,
             'Slim\\' => 5,
+            'Silly\\' => 6,
             'Service\\' => 8,
         ),
         'R' => 
@@ -156,9 +161,11 @@ class ComposerStaticInit55a8e3f095259a35f7c2a1b746575ae9
         array (
             'JmesPath\\' => 9,
             'Jaeger\\' => 7,
+            'JSpider\\' => 8,
         ),
         'I' => 
         array (
+            'Invoker\\' => 8,
             'Interop\\Container\\' => 18,
         ),
         'G' => 
@@ -184,10 +191,6 @@ class ComposerStaticInit55a8e3f095259a35f7c2a1b746575ae9
             'Cache\\TagInterop\\' => 17,
             'Cache\\Adapter\\Filesystem\\' => 25,
             'Cache\\Adapter\\Common\\' => 21,
-        ),
-        'B' => 
-        array (
-            'Beanbun\\' => 8,
         ),
         'A' => 
         array (
@@ -216,6 +219,10 @@ class ComposerStaticInit55a8e3f095259a35f7c2a1b746575ae9
         array (
             0 => __DIR__ . '/..' . '/tightenco/collect/src/Collect',
         ),
+        'Symfony\\Polyfill\\Php73\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php73',
+        ),
         'Symfony\\Polyfill\\Php72\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php72',
@@ -232,6 +239,10 @@ class ComposerStaticInit55a8e3f095259a35f7c2a1b746575ae9
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
         ),
+        'Symfony\\Contracts\\Service\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/service-contracts',
+        ),
         'Symfony\\Component\\VarDumper\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/var-dumper',
@@ -239,6 +250,10 @@ class ComposerStaticInit55a8e3f095259a35f7c2a1b746575ae9
         'Symfony\\Component\\Finder\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/finder',
+        ),
+        'Symfony\\Component\\Console\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/console',
         ),
         'Slim\\Views\\' => 
         array (
@@ -256,6 +271,10 @@ class ComposerStaticInit55a8e3f095259a35f7c2a1b746575ae9
         'Slim\\' => 
         array (
             0 => __DIR__ . '/..' . '/slim/slim/Slim',
+        ),
+        'Silly\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mnapoli/silly/src',
         ),
         'Service\\' => 
         array (
@@ -347,6 +366,14 @@ class ComposerStaticInit55a8e3f095259a35f7c2a1b746575ae9
         array (
             0 => __DIR__ . '/..' . '/jaeger/g-http/src',
         ),
+        'JSpider\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src',
+        ),
+        'Invoker\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-di/invoker/src',
+        ),
         'Interop\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/container-interop/container-interop/src/Interop/Container',
@@ -398,10 +425,6 @@ class ComposerStaticInit55a8e3f095259a35f7c2a1b746575ae9
         'Cache\\Adapter\\Common\\' => 
         array (
             0 => __DIR__ . '/..' . '/cache/adapter-common',
-        ),
-        'Beanbun\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src',
         ),
         'Aws\\' => 
         array (
@@ -476,6 +499,7 @@ class ComposerStaticInit55a8e3f095259a35f7c2a1b746575ae9
         'DOMEvent' => __DIR__ . '/..' . '/jaeger/phpquery-single/phpQuery.php',
         'EasyPeasyICS' => __DIR__ . '/..' . '/phpmailer/phpmailer/extras/EasyPeasyICS.php',
         'ICallbackNamed' => __DIR__ . '/..' . '/jaeger/phpquery-single/phpQuery.php',
+        'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
         'Mobile_Detect' => __DIR__ . '/..' . '/mobiledetect/mobiledetectlib/Mobile_Detect.php',
         'Nette\\ArgumentOutOfRangeException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
         'Nette\\Bridges\\CacheDI\\CacheExtension' => __DIR__ . '/..' . '/nette/caching/src/Bridges/CacheDI/CacheExtension.php',
