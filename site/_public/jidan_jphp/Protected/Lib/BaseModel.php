@@ -50,6 +50,7 @@ abstract class BaseModel {
 	 * @param string $order
 	 * @param string $orderType
 	 * @return array|mixed
+	 * @throws \ErrorException
 	 */
 	public static function findOne($where = "", array $values = [], $order = "", $orderType = "ASC") {
 		$data = self::find($where, $values, $order, $orderType);
@@ -58,13 +59,14 @@ abstract class BaseModel {
 
 	/**
 	 * 查找
-	 * @param string $whereConfiguration file
+	 * @param string $where
 	 * @param array $values
 	 * @param string $order
 	 * @param string $orderType
 	 * @param int $offset
 	 * @param int $limit
 	 * @return array
+	 * @throws \ErrorException
 	 */
 	public static function find($where = "", array $values = [], $order = "", $orderType = "ASC", $offset = 0, $limit = 0) {
 		$model = self::getModel();
@@ -91,6 +93,7 @@ abstract class BaseModel {
 	 * @param string $order
 	 * @param string $orderType
 	 * @return array
+	 * @throws \ErrorException
 	 */
 	public static function paginate(Paginate &$paginate, $where = "", array $values = [], $order = "", $orderType = "ASC") {
 		$model = self::getModel();
@@ -106,6 +109,7 @@ abstract class BaseModel {
 	 * @param string $where
 	 * @param array $values
 	 * @return int
+	 * @throws \ErrorException
 	 */
 	public static function count($where = "", array $values = []) {
 		$model = self::getModel();
@@ -122,6 +126,7 @@ abstract class BaseModel {
 	 * 插入
 	 * @param array $kvMap
 	 * @return string
+	 * @throws \ErrorException
 	 */
 	public static function insert(array $kvMap) {
 		$model = self::getModel();
@@ -140,6 +145,7 @@ abstract class BaseModel {
 	 * @param string $where
 	 * @param array $values_
 	 * @return int
+	 * @throws \ErrorException
 	 */
 	public static function update(array $kvMap_, $where = "", array $values_ = []) {
 		$argsNum=func_num_args();
@@ -166,6 +172,7 @@ abstract class BaseModel {
 	 * @param string $where
 	 * @param array $values
 	 * @return int
+	 * @throws \ErrorException
 	 */
 	public static function delete($where = "", array $values = []) {
 		$model = self::getModel();
